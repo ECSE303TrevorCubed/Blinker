@@ -1,0 +1,6 @@
+out
+result
+result-*
+.direnv
+*.o
+*.a

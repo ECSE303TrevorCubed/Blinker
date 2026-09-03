@@ -13,11 +13,27 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
+          nativeBuildInputs = with pkgs; [
+            clang-tools
+            pkg-config
+            gcc
+          ];
+
+          packages = with pkgs; [
             python3
             typst
             typstyle
-          ];
+            nil
+            nixd
+          ] ++ [
+            wiringpi
+          ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ wiringpi ];
+        };
+        packages = let
+          blink_c = pkgs.callPackage ./nix/c.nix {};
+        in {
+          default = blink_c;
+          inherit blink_c;
         };
       }
     );
