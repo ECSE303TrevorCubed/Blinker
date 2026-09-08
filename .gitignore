@@ -4,3 +4,5 @@ result-*
 .direnv
 *.o
 *.a
+.python-version
+.venv
