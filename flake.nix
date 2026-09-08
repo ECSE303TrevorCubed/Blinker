@@ -89,6 +89,7 @@
               nil
               nixd
               uv
+              swig
             ]
             ++ [
               wiringpi
