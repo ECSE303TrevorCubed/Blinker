@@ -1,7 +1,7 @@
 #include <stdbool.h>  // Used for 'true'
 #include <wiringPi.h> // Include WiringPi library!
 
-const int ledPin = 25;
+const int ledPin = 26;
 
 int main(void) {
   // Setup stuff:
