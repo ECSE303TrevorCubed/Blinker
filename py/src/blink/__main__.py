@@ -44,7 +44,8 @@ def main() -> None:
     """Run the main blink program"""
     setup()
     try:
-        loop()
+        while True:
+            loop()
     except KeyboardInterrupt:
         destroy()
 
