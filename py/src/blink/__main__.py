@@ -6,14 +6,14 @@ import time
 
 from RPi import GPIO
 
-LED_PIN = 26     # GPIO pin 26
+LED_PIN = 25     # GPIO pin 25
 WAIT_TIME = 0.5  # Wait 0.5 seconds between on/off
 
 
 def setup() -> None:
     """Set up the Rpi for blinking"""
     # Numbers GPIOs by physical location
-    GPIO.setmode(GPIO.BOARD)
+    GPIO.setmode(GPIO.BCM)
     # Set LedPin's mode is output
     GPIO.setup(LED_PIN, GPIO.OUT)
     # Set LedPin high(+3.3V) to off led
