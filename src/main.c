@@ -1,4 +1,4 @@
-#include <stdio.h>    // Used for printf() statements
+#include <stdbool.h> // Used for 'true'
 #include <wiringPi.h> // Include WiringPi library!
 
 const int ledPin = 25;
