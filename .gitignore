@@ -6,3 +6,4 @@ result-*
 *.a
 .python-version
 .venv
+report/*.pdf

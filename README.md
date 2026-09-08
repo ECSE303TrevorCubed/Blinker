@@ -2,7 +2,8 @@ Assignment #1 Group #11
 
 # Follow these steps to run the C program:
 
-0. Move directories to location of code files `cd ~/[directory location]` OR `cd src`
+0. Move directories to location of code files
+    `cd ~/[directory location]` OR `cd c`
 
 1. Compile the (file type) code `make`
 
