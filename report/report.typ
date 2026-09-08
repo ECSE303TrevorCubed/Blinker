@@ -49,26 +49,26 @@ The purpose of this assignment is to get familiar with the Raspberry Pi, includi
 - The `gpio` command could enable and disable the connected LED via `gpio write 0/1`
 - Using the makefile, we ran `make` and observed the output c file at `blinker_c` in the `src` directory
 - Running both `sudo python blinker.py` and `sudo ./blinker_c` from `src`, we observed:
-    - The LED blinked on and off repeatedly, staying on for 500 milliseconds before turning off for 500 milliseconds, looping like this forever before we killed the process
+  - The LED blinked on and off repeatedly, staying on for 500 milliseconds before turning off for 500 milliseconds, looping like this forever before we killed the process
 
 === Conclusions:
 
 - We completed the lab using
-    - A Blue LED
-    - A 100 kOhm resistor
-    - A male-female wire from ground to the breadboard
-    - A male-female wire from GPIO 25 to one end of the resistor
+  - A Blue LED
+  - A 100 kOhm resistor
+  - A male-female wire from ground to the breadboard
+  - A male-female wire from GPIO 25 to one end of the resistor
 
 === Notes:
 
 - CLI
-    - We set GPIO 25 to output with `gpio mode 25 out`
-    - We could toggle the pin using `gpio write 25 0/1`
+  - We set GPIO 25 to output with `gpio mode 25 out`
+  - We could toggle the pin using `gpio write 25 0/1`
 - You can run `gpio` without being behind a `sudo`
-    - This is perhaps because `gpio` is a root command
-    - `ls -lh $(which gpio)` returned: `-rwsr-xr-x 1 root root 42K Jul 25  2024 /usr/local/bin/gpio`
+  - This is perhaps because `gpio` is a root command
+  - `ls -lh $(which gpio)` returned: `-rwsr-xr-x 1 root root 42K Jul 25  2024 /usr/local/bin/gpio`
 - Our user processes with python and C both required `sudo` to function
-    - Without sudo, the C process said: `wiringPiSetup: Unable to open /dev/mem or /dev/gpiomem: Permission denied.
+  - Without sudo, the C process said: `wiringPiSetup: Unable to open /dev/mem or /dev/gpiomem: Permission denied.
       Aborting your program because if it can not access the GPIO
       hardware then it most certianly won't work
       Try running with sudo?`

@@ -7,18 +7,18 @@ const int waitTime = 500;
 
 // Signal handler
 void handleSignal(int sig) {
-    // Clean up GPIO states before exiting
-    digitalWrite(ledPin, LOW);
-    pinMode(ledPin, INPUT); // Reset pin back to input for safety
+  // Clean up GPIO states before exiting
+  digitalWrite(ledPin, LOW);
+  pinMode(ledPin, INPUT); // Reset pin back to input for safety
 
-    // Terminate the process cleanly
-    exit(0);
+  // Terminate the process cleanly
+  exit(0);
 }
 
 int main(void) {
   // Setup stuff:
   signal(SIGINT, handleSignal);
-  wiringPiSetupGpio(); // Initialize wiringPi -- using Broadcom pin numbers
+  wiringPiSetupGpio();     // Initialize wiringPi -- using Broadcom pin numbers
   pinMode(ledPin, OUTPUT); // Set regular LED as output
 
   while (true) {
