@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
     uv2nix.url = "github:pyproject-nix/uv2nix";
     pybuild.url = "github:pyproject-nix/build-system-pkgs";
     pyproject.url = "github:pyproject-nix/pyproject.nix";
@@ -33,6 +34,7 @@
             shellcheck.enable = true;
             shfmt.enable = true;
             nixfmt.enable = true;
+            typstyle.enable = true;
           };
           settings.formatter.shellcheck.excludes = [
             ".envrc"
@@ -69,7 +71,6 @@
         venv = pythonSet.mkVirtualEnv "venv" workspace.deps.default;
         venvDev = pythonSet.mkVirtualEnv "venvDev" (workspace.deps.all or workspace.deps.default);
         inherit (pkgs.callPackages inputs.pyproject.build.util { }) mkApplication;
-
       in
       {
         formatter = treefmtconfig.config.build.wrapper;
@@ -80,16 +81,20 @@
             gcc
           ];
 
-          packages = with pkgs; [
-            typst
-            typstyle
-            nil
-            nixd
-            uv
-          ] ++ [
-            wiringpi
-            venvDev
-          ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ wiringpi ];
+          packages =
+            with pkgs;
+            [
+              typst
+              typstyle
+              nil
+              nixd
+              uv
+            ]
+            ++ [
+              wiringpi
+              venvDev
+            ]
+            ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ wiringpi ];
 
           env = {
             UV_NO_SYNC = "1";
@@ -104,14 +109,16 @@
             ln -sfn ${venvDev} $PROJ_ROOT/.venv
           '';
         };
-        packages = let
-          blink_py = pkgs.callPackage ./nix/py.nix { inherit mkApplication pythonSet venv; };
-          blink_c = pkgs.callPackage ./nix/c.nix {};
-        in {
-          default = blink_c;
-          inherit blink_py;
-          inherit blink_c;
-        };
+        packages =
+          let
+            blink_py = pkgs.callPackage ./nix/py.nix { inherit mkApplication pythonSet venv; };
+            blink_c = pkgs.callPackage ./nix/c.nix { };
+          in
+          {
+            default = blink_c;
+            inherit blink_py;
+            inherit blink_c;
+          };
         checks = {
           formatting = treefmtconfig.config.build.check self;
         };
