@@ -6,7 +6,7 @@ import time
 
 from RPi import GPIO
 
-LED_PIN = 11     # pin11
+LED_PIN = 25     # pin11
 WAIT_TIME = 0.5  # Wait 0.5 seconds between on/off
 
 
