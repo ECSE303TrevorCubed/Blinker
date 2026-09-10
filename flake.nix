@@ -114,11 +114,13 @@
           let
             blink_py = pkgs.callPackage ./nix/py.nix { inherit mkApplication pythonSet venv; };
             blink_c = pkgs.callPackage ./nix/c.nix { };
+            blink_sh = pkgs.callPackage ./nix/sh.nix { };
           in
           {
             default = blink_c;
             inherit blink_py;
             inherit blink_c;
+            inherit blink_sh;
           };
         checks = {
           formatting = treefmtconfig.config.build.check self;
