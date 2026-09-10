@@ -6,7 +6,7 @@ Assignment #1 Group #11
 
 1. Compile the code with nix `nix build .#blink_c`
 
-2. Run the out file `sudo ./result/bin/blink`
+1. Run the out file `sudo ./result/bin/blink`
 
 # Follow these steps to run the Python program:
 
@@ -14,7 +14,7 @@ Assignment #1 Group #11
 
 1. Compile the code with nix `nix build .#blink_py`
 
-2. Run the out `sudo ./result/bin/blink`
+1. Run the out `sudo ./result/bin/blink`
 
 # Follow these steps to run the Shell script:
 
@@ -22,4 +22,4 @@ Assignment #1 Group #11
 
 1. Compile the code with nix `nix build .#blink_sh`
 
-2. Run the out `sudo ./result/bin/blink`
+1. Run the out `sudo ./result/bin/blink`
