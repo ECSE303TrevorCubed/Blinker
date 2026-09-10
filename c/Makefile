@@ -2,7 +2,7 @@ CC ?= gcc
 CFLAGS ?= -Wall -Wextra
 LIBS = -lwiringPi
 
-TARGET = blinker_c
+TARGET = blink
 SRCS = main.c
 
 all: $(TARGET)
