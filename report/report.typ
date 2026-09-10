@@ -42,6 +42,7 @@ The purpose of this assignment is to get familiar with the Raspberry Pi, includi
 - The circuit we built was based off of a simple LED setup shown in lecture
 #image("circuit-diagram.png", width: 80%)
 - This setup requires a somewhat weak resistor, LED, and two wires to hook up to the pi
+- We will use signal handlers in the different languages to handle interrupts to ensure resources do not leak
 
 === Measurements and Results:
 
@@ -54,10 +55,11 @@ The purpose of this assignment is to get familiar with the Raspberry Pi, includi
 === Conclusions:
 
 - We completed the lab using
-  - A Blue LED
+  - A Red LED
   - A 100 kOhm resistor
   - A male-female wire from ground to the breadboard
   - A male-female wire from GPIO 25 to one end of the resistor
+- We expected the LED to blink on and off as we ran the code, and running it with sudo worked as expected
 
 === Notes:
 
@@ -72,3 +74,5 @@ The purpose of this assignment is to get familiar with the Raspberry Pi, includi
       Aborting your program because if it can not access the GPIO
       hardware then it most certianly won't work
       Try running with sudo?`
+- We used nix to orchestrate the builds of the c, python, and shell script
+  - This outputs the file to `result/bin` and gives executables that you can run to `sudo`
