@@ -1,4 +1,10 @@
-{ stdenv, lib, apps, reports, ... }:
+{
+  stdenv,
+  lib,
+  apps,
+  reports,
+  ...
+}:
 stdenv.mkDerivation {
   pname = "blinker";
   version = "0.0.1";
@@ -11,7 +17,7 @@ stdenv.mkDerivation {
 
     # Copy each app derivation file to the output root under its attribute name
     ${builtins.concatStringsSep "\n" (
-        lib.mapAttrsToList (name: drv: "cp -f \"${drv.appimage}\" \"$out/${name}.AppImage\"") apps
+      lib.mapAttrsToList (name: drv: "cp -f \"${drv.appimage}\" \"$out/${name}.AppImage\"") apps
     )}
   '';
 }

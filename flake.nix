@@ -113,19 +113,26 @@
         };
         packages =
           let
-            blink_apps = builtins.mapAttrs (_: pkg:
-              pkg.overrideAttrs (oldAttrs: {
-                passthru = (oldAttrs.passthru or { }) // {
-                  appimage = inputs.appimage.bundlers.${system}.default pkg;
+            blink_apps =
+              builtins.mapAttrs
+                (
+                  _: pkg:
+                  pkg.overrideAttrs (oldAttrs: {
+                    passthru = (oldAttrs.passthru or { }) // {
+                      appimage = inputs.appimage.bundlers.${system}.default pkg;
+                    };
+                  })
+                )
+                {
+                  blink_py = pkgs.callPackage ./nix/py.nix { inherit mkApplication pythonSet venv; };
+                  blink_c = pkgs.callPackage ./nix/c.nix { };
+                  blink_sh = pkgs.callPackage ./nix/sh.nix { };
                 };
-              })
-            ) {
-              blink_py = pkgs.callPackage ./nix/py.nix { inherit mkApplication pythonSet venv; };
-              blink_c = pkgs.callPackage ./nix/c.nix { };
-              blink_sh = pkgs.callPackage ./nix/sh.nix { };
-            };
             blink_report = pkgs.callPackage ./nix/report.nix { };
-            ci = pkgs.callPackage ./nix/ci.nix { apps = blink_apps; reports = blink_report; };
+            ci = pkgs.callPackage ./nix/ci.nix {
+              apps = blink_apps;
+              reports = blink_report;
+            };
           in
           {
             default = blink_apps.blink_c;
