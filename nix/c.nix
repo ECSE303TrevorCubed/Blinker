@@ -12,4 +12,7 @@ stdenv.mkDerivation {
     pkg-config
   ];
   buildInputs = [ wiringpi ];
+  meta = {
+    mainProgram = "blink";
+  };
 }

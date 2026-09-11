@@ -6,6 +6,7 @@
     uv2nix.url = "github:pyproject-nix/uv2nix";
     pybuild.url = "github:pyproject-nix/build-system-pkgs";
     pyproject.url = "github:pyproject-nix/pyproject.nix";
+    appimage.url = "github:ralismark/nix-appimage";
   };
 
   outputs =
@@ -112,17 +113,24 @@
         };
         packages =
           let
-            blink_py = pkgs.callPackage ./nix/py.nix { inherit mkApplication pythonSet venv; };
-            blink_c = pkgs.callPackage ./nix/c.nix { };
-            blink_sh = pkgs.callPackage ./nix/sh.nix { };
+            blink_apps = builtins.mapAttrs (_: pkg:
+              pkg.overrideAttrs (oldAttrs: {
+                passthru = (oldAttrs.passthru or { }) // {
+                  appimage = inputs.appimage.bundlers.${system}.default pkg;
+                };
+              })
+            ) {
+              blink_py = pkgs.callPackage ./nix/py.nix { inherit mkApplication pythonSet venv; };
+              blink_c = pkgs.callPackage ./nix/c.nix { };
+              blink_sh = pkgs.callPackage ./nix/sh.nix { };
+            };
             blink_report = pkgs.callPackage ./nix/report.nix { };
+            ci = pkgs.callPackage ./nix/ci.nix { apps = blink_apps; reports = blink_report; };
           in
           {
-            default = blink_c;
-            inherit blink_py;
-            inherit blink_c;
-            inherit blink_sh;
-            inherit blink_report;
+            default = blink_apps.blink_c;
+            inherit (blink_apps) blink_py blink_c blink_sh;
+            inherit blink_report ci;
           };
         checks = {
           formatting = treefmtconfig.config.build.check self;
